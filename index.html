@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Donate - Support My Godot Tutorials</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      text-align: center;
+      max-width: 400px;
+      width: 100%;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 15px;
+      margin-bottom: 20px;
+    }
+
+    img {
+      max-width: 100%;
+      margin-bottom: 20px;
+      border-radius: 8px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    .amount-buttons button {
+      padding: 10px 20px;
+      margin: 5px;
+      border: none;
+      border-radius: 8px;
+      background: #008cff;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .amount-buttons button:hover {
+      background: #005fcc;
+    }
+
+    .thanks {
+      display: none;
+      margin-top: 20px;
+      color: green;
+    }
+
+    .warning {
+      color: red;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Support My Godot Tutorials 💖</h1>
+    <p>I’ve been making free videos for 2 years. If you’ve learned something, please consider donating 🙏</p>
+
+    <!-- QR code if someone prefers scanning -->
+    <img src="qr.jpg" width="200" height="200" alt="Donate QR Code" />
+
+    <!-- Amount buttons -->
+    <div class="amount-buttons">
+      <button onclick="donate(10)">Donate ₹10</button>
+      <button onclick="donate(50)">Donate ₹50</button>
+      <button onclick="donate(100)">Donate ₹100</button>
+    </div>
+
+    <div class="warning" id="warningMsg"></div>
+    <div class="thanks" id="thanksMessage">Redirecting to your UPI app... 🎉</div>
+  </div>
+
+  <script>
+    const receiverUpi = "sainisurendra0@axl"; // Replace with your actual UPI ID
+    const receiverName = "Surendra saini";   // Optional
+
+    function donate(amount) {
+      const warning = document.getElementById("warningMsg");
+      const thanks = document.getElementById("thanksMessage");
+
+
+      warning.textContent = "";
+      thanks.style.display = "block";
+
+      // Create the UPI payment URI
+      const upiUri = `upi://pay?pa=${receiverUpi}&pn=${encodeURIComponent(receiverName)}&am=${amount}&cu=INR&tn=Thanks+for+supporting&mc=&tr=${Date.now()}&url=&mode=00&orgid=000000&pn=`;
+
+      // Redirect to UPI handler
+      window.location.href = upiUri;
+    }
+  </script>
+</body>
+</html>

@@ -2,100 +2,102 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Donate - Support My Godot Tutorials</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Donate via UPI</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f2f2f2;
+      font-family: sans-serif;
+      background: #f9f9f9;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-      min-height: 100vh;
-      margin: 0;
       padding: 20px;
     }
-    .container {
-      background: white;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.1);
-      text-align: center;
-      max-width: 400px;
-      width: 100%;
-    }
-    h1 {
+
+    h2 {
       margin-bottom: 10px;
     }
-    p {
-      font-size: 15px;
-      margin-bottom: 20px;
-    }
+
     img {
-      max-width: 100%;
+      width: 250px;
+      height: 250px;
       margin-bottom: 20px;
-      border-radius: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
     }
-    .amount-buttons a {
-      text-decoration: none;
+
+    .upi-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
     }
-    .amount-buttons button {
-      padding: 10px 20px;
-      margin: 5px;
+
+    input[type="text"] {
+      font-size: 16px;
+      padding: 8px;
+      width: 240px;
+      text-align: center;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      padding: 10px 16px;
+      font-size: 16px;
       border: none;
-      border-radius: 8px;
-      background: #008cff;
-      color: white;
+      border-radius: 6px;
       cursor: pointer;
-      transition: background 0.3s ease;
     }
-    .amount-buttons button:hover {
-      background: #005fcc;
+
+    .copy-btn {
+      background-color: #ff9800;
+      color: white;
     }
-    .thanks {
-      display: none;
-      margin-top: 20px;
-      color: green;
+
+    .copy-btn:hover {
+      background-color: #e68900;
     }
-    .warning {
-      color: red;
-      font-size: 14px;
-      margin-top: 10px;
+
+    .open-btn {
+      background-color: #4caf50;
+      color: white;
+    }
+
+    .open-btn:hover {
+      background-color: #3e8e41;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Support My Godot Tutorials 💖</h1>
-    <p>I’ve been making free videos for 2 years. If you’ve learned something, please consider donating 🙏</p>
+  
+<h1>Support My Godot Tutorials 💖</h1>
+<p>I’ve been making free videos for 2 years. If you’ve learned something, please consider donating 🙏</p>
 
-    <!-- QR code if someone prefers scanning -->
-    <img src="qr.jpg" width="200" height="200" alt="Donate QR Code" />
+  <img src="qr.jpg" alt="UPI QR Code" />
 
-    <!-- Amount buttons -->
-    <div class="amount-buttons">
-      <a href="upi://pay?pa=sainisurendra0@axl&pn=Surendra%20Saini&am=10&cu=INR&tn=Thanks%20for%20supporting">
-        <button>Donate ₹10</button>
-      </a>
-      <a href="upi://pay?pa=sainisurendra0@axl&pn=Surendra%20Saini&am=50&cu=INR&tn=Thanks%20for%20supporting">
-        <button>Donate ₹50</button>
-      </a>
-      <a href="upi://pay?pa=sainisurendra0@axl&pn=Surendra%20Saini&am=100&cu=INR&tn=Thanks%20for%20supporting">
-        <button>Donate ₹100</button>
-      </a>
-    </div>
-
-    <div class="warning" id="warningMsg"></div>
-    <div class="thanks" id="thanksMessage">Redirecting to your UPI app... 🎉</div>
+  <div class="upi-section">
+    <input type="text" id="upiId" value="sainisurendra0@axl" readonly />
+    <button class="copy-btn" onclick="copyUPI()">Copy UPI ID</button>
+    <button class="open-btn" onclick="openUPI()">Open UPI App</button>
   </div>
 
   <script>
-    // Optional: Display a thank you message when a button is clicked
-    document.querySelectorAll('.amount-buttons a').forEach(function(anchor) {
-      anchor.addEventListener('click', function() {
-        document.getElementById('thanksMessage').style.display = 'block';
-      });
-    });
+    function copyUPI() {
+      const upiInput = document.getElementById("upiId");
+      navigator.clipboard.writeText(upiInput.value)
+        .then(() => alert("UPI ID copied!"))
+        .catch(() => alert("Failed to copy."));
+    }
+
+    function openUPI() {
+      const upiId = document.getElementById("upiId").value;
+      const url = `upi://pay?pa=${encodeURIComponent(upiId)}&pn=Surendra%20Saini&cu=INR`;
+      window.location.href = url;
+    }
   </script>
 </body>
 </html>
+
+
